@@ -1,0 +1,5 @@
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/root’: Permission denied
+find: ‘/mnt/c/$Recycle.Bin/S-1-5-18’: Permission denied
+find: ‘/mnt/c/$Recycle.Bin/S-1-5-21-2817931307-3635870435-3670213253-1000’: Permission denied
