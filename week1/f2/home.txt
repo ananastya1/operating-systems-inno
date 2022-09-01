@@ -1,0 +1,4 @@
+output.txt
+errors.txt
+lab1
+week1
