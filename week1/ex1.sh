@@ -1,1 +1,1 @@
-grep -r gcc /usr/bin | sort -r | tail -n 5 > ex1.txt
+find /usr/bin -name "gcc*" | sort -r | tail -n 5 > ~/week1/ex1.txt
