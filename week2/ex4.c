@@ -9,7 +9,7 @@ int main(int argc, char *argv[]) {
     char str[256];
     int len;
     printf("enter string: ");
-    scanf("%s", str);
+    fgets(str, 256, stdin);
     for (int i = 0; i < strlen(str); i++)  {  
     if (str[i] >= 65 && str[i] <= 90)  
         str[i] = str[i] + 32;
@@ -28,8 +28,8 @@ int count(char str[256], char symb) {
 }
 
 void countAll(char str[256]) {
-    for (int i = 0; i < strlen(str); ++i) {
+    for (int i = 0; i < strlen(str) - 1; ++i) {
         printf("%c: %d", str[i], count(str, str[i]));
-        if (i < strlen(str) - 1) printf(", ");
+        if (i < strlen(str) - 2) printf(", ");
     }
 }
