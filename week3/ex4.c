@@ -5,65 +5,51 @@
 void *aggregate(void *base, size_t size, int n, void *initial_value, void *(*opr)(const void *, const void *));
 
 void *addInt(const void *a, const void *b) {
-    int n = *((int *) b);
-    int *nums = (int *) a;
-    int *sum = calloc(1, sizeof(int));
-    for (int i = 0; i < n + 1; i++) {
-        *sum += nums[i];
-    }
-    return sum;
+    int *first = (int *) a;
+    int *second = (int *) b;
+    int sum = *first + *second;
+    int *p = &sum;
+    return p;
 }
 
 void* addDouble(const void* a, const void* b){
-    int n = *((int*)b);
-    double *nums = (double *)a;
-    double *sum = calloc(1, sizeof(double));
-    for (int i = 0; i < n+1; i++) {
-        *sum += nums[i];
-    }
-    return sum;
+    double *first = (double *) a;
+    double *second = (double *) b;
+    double sum = *first + *second;
+    double *p = &sum;
+    return p;
 }
 
 void *mulInt(const void *a, const void *b) {
-    int n = *((int *) b);
-    int *nums = (int *) a;
-    int *mul = &nums[0];
-    for (int i = 0; i < n + 1; i++) {
-        *mul = (*mul) * nums[i];
-    }
-    return mul;
+    int *first = (int *) a;
+    int *second = (int *) b;
+    int sum = *first * *second;
+    int *p = &sum;
+    return p;
 }
 
 void *mulDouble(const void *a, const void *b) {
-    int n = *((int *) b);
-    double *nums = (double *) a;
-    double *mul = &nums[0];
-    for (int i = 0; i < n + 1; i++) {
-        *mul = (*mul) * nums[i];
-    }
-    return mul;
+    double *first = (double *) a;
+    double *second = (double *) b;
+    double sum = *first * *second;
+    double *p = &sum;
+    return p;
 }
 
 void *meanInt(const void *a, const void *b) {
-    int n = *((int *) b);
-    int *nums = (int *) a;
-    int *sum = &nums[0];
-    for (int i = 0; i < n + 1; i++) {
-        *sum += nums[i];
-    }
-    *sum = (*sum) / n; 
-    return sum;
+    int *first = (int *) a;
+    int *second = (int *) b;
+    int sum = *first + *second;
+    int *p = &sum;
+    return p;
 }
 
 void *meanDouble(const void *a, const void *b) {
-    int n = *((int *) b);
-    double *nums = (double *) a;
-    double *sum = &nums[0];
-    for (int i = 0; i < n + 1; i++) {
-        *sum += nums[i];
-    }
-    *sum = (*sum) / n; 
-    return sum;
+    double *first = (double *) a;
+    double *second = (double *) b;
+    double sum = *first + *second;
+    double *p = &sum;
+    return p;
 }
 
 void *aggregate(void *base, size_t size, int n, void *initial_value, void *(*opr)(const void *, const void *)) {
@@ -73,26 +59,30 @@ void *aggregate(void *base, size_t size, int n, void *initial_value, void *(*opr
     if (size == sizeof(int)) { // base is a pointer to an integer
 
         int *array = (int *) base;
-        int ar[6];
         int *h = (int *) initial_value;
-        ar[0] = *h;
-        for (int i = 1; i < 6; i++) {
-            ar[i] = array[i - 1];
+        for (int i = 0; i < 5; i++) {
+            h = opr(h, &array[i]);
         }
-        output = opr(ar, &n);
+        if (opr==meanInt){
+            int r = (*h) / n;
+            h = &r;
+        }
+        output = (void *) h;
+    }
 
 
-    } else { // base is a pointer to a double
+     else { // base is a pointer to a double
 
         double *array = (double *) base;
-        double ard[6];
-        double *hh = (double *) initial_value;
-        ard[0] = *hh;
-        for (int i = 1; i < 6; i++) {
-            ard[i] = array[i - 1];
+        double *h = (double *) initial_value;
+        for (int i = 0; i < 5; i++) {
+            h = opr(h, &array[i]);
         }
-        output = opr(ard, &n);
-
+        if (opr==meanDouble){
+            double res = (*h) / n;
+            h = (double *) &res;
+        }
+        output = (void *) h;
     }
 
     return output;
@@ -161,7 +151,7 @@ int main() {
 
     // free the pointers
     free(ints);
-    free(doubles);
+ //   free(doubles);
     
 
 
