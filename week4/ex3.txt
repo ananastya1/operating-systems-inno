@@ -1,2 +1,2 @@
 The program calls fork() in cycle creating new process from every running process every 5 seconds. 
-So, this code builds hierarchy of processes from main one which is binomial tree of order n.
+So, this code builds hierarchy of processes from main one. The hierarchy is binomial tree of order n.

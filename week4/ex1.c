@@ -22,14 +22,14 @@ int main() {
 
         if (child_b == 0) {
             clock_t endb = clock();
-            printf("child_b %d %d %f ms\n", getpid(), getppid(), (float) (endb - tb) / CLOCKS_PER_SEC);
+            printf("child_b %d %d %f ms\n", getpid(), getppid(), (float) (endb - tb) * 1000 / CLOCKS_PER_SEC);
             exit(0);
         } else {
             for (int i = 0; i < 2; ++i) {
                 wait(NULL);
             }
             clock_t endp = clock();
-            printf("parent %d %d %f ms\n", getpid(), getppid(), (float) (endp - tp) / CLOCKS_PER_SEC);
+            printf("parent %d %d %f ms\n", getpid(), getppid(), (float) (endp - tp) * 1000 / CLOCKS_PER_SEC);
         }
     }
 }
