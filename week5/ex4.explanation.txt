@@ -1,2 +1,4 @@
 The dependence of the number of threads and running time of the program is inversely proportional.
 Differencies in run time of ex3.c and ex4.c are minor.
+But with a great number of threads run time of programm 4 is bigger than for program 3.
+It can be related with lock and unlock of work of threads.
