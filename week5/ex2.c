@@ -24,7 +24,6 @@ void *thread_start(void *thread)
 int main(int argc, char *argv[])
 {
     int i;
-    int *i_ad = &i;
     Thread thread[N];
     for (i = 0; i < N; i++)
     {
