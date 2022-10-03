@@ -1,0 +1,2 @@
+The dependence of the number of threads and running time of the program is inversely proportional.
+Differencies in run time of ex3.c and ex4.c are minor.

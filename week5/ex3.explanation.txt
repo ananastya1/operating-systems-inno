@@ -1,0 +1,1 @@
+The dependence of the number of threads and running time of the program is inversely proportional.
