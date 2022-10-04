@@ -1,1 +1,3 @@
 The dependence of the number of threads and running time of the program is inversely proportional.
+At the end run time of program changed less. It can be caused because of limited amount of memory in cash as often data upload can be necessary.
+Also, use of Linux in virtual machine can influence on run time of program.

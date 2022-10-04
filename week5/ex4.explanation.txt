@@ -1,4 +1,6 @@
-The dependence of the number of threads and running time of the program is inversely proportional.
+The same as in the ex3 the dependence of the number of threads and running time of the program is inversely proportional.
 Differencies in run time of ex3.c and ex4.c are minor.
 But with a great number of threads run time of programm 4 is bigger than for program 3.
-It can be related with lock and unlock of work of threads.
+It can be related with often mutex use.
+At the end run time of program changed less. It can be caused because of limited amount of memory in cash as often data upload can be necessary.
+Also, use of Linux in virtual machine can influence on run time of program.
