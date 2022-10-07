@@ -1,0 +1,4 @@
+The second algorithm is more efficient than the first one.
+For example, if number of proccesses = 3, arrival times = 0 0 0, burst times = 1 30 1,
+then average TAT for FCFS = 21.3 and average TAT for SJF = 11,7, WT for FCFS = 10,7 
+and WT for SJF = 1.
