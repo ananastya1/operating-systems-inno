@@ -2,6 +2,28 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+void swap(int *x, int *y)
+{
+	int temp = *x;
+	*x = *y;
+	*y = temp;
+}
+
+void sortat(int at[], int bt[], int n)
+{
+	int i, j;
+	for (i = 0; i < n; i++)
+	{
+		for (j = i + 1; j < n; j++)
+		{
+			if (at[i] > at[j])
+			{
+				swap(&at[i], &at[j]);
+				swap(&bt[i], &bt[j]);
+			}
+		}
+	}
+}
 
 void findWT(int n, int bt[], int wt[], int at[])
 {
@@ -12,14 +34,14 @@ void findWT(int n, int bt[], int wt[], int at[])
 	for (int i = 1; i < n; i++)
 	{
 		sum_time[i] = sum_time[i - 1] + bt[i - 1];
-		wt[i] = sum_time[i] - at[i] > 0 ? sum_time[i] - at[i]: 0;
+		wt[i] = sum_time[i] - at[i] > 0 ? sum_time[i] - at[i] : 0;
 	}
 }
 
-
 void findTAT(int n, int bt[], int wt[], int tat[])
 {
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++)
+	{
 		tat[i] = bt[i] + wt[i];
 	}
 }
@@ -47,18 +69,20 @@ int main()
 	int key, j;
 	int waiting_time[n], turnaround_time[n];
 
-	for (int i = 1; i < n; i++)
-	{
-		key = arrival_time[i];
-		j = i - 1;
-		while (j >= 0 && arrival_time[j] > key)
-		{
-			arrival_time[j + 1] = arrival_time[j];
-			burst_time[j + 1] = burst_time[j];
-			j -= 1;
-		}
-		arrival_time[j + 1] = key;
-	}
+	sortat(arrival_time, burst_time, n);
+
+	// for (int i = 1; i < n; i++)
+	// {
+	// 	key = arrival_time[i];
+	// 	j = i - 1;
+	// 	while (j >= 0 && arrival_time[j] > key)
+	// 	{
+	// 		arrival_time[j + 1] = arrival_time[j];
+	// 		burst_time[j + 1] = burst_time[j];
+	// 		j -= 1;
+	// 	}
+	// 	arrival_time[j + 1] = key;
+	// }
 
 	findWT(n, burst_time, waiting_time, arrival_time);
 
