@@ -1,27 +1,102 @@
+#include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
 
-bool remainders(int rem_time[], int n)
+
+int i, j, total_time = 0;
+float total_tat = 0, total_wt = 0;
+int queue[100];
+int cur_time = 0, front = 0, rear = 0, k = 0;
+
+void swap(int *x, int *y)
 {
-    int remainder = 0;
+    int temp = *x;
+    *x = *y;
+    *y = temp;
+}
+
+void push(int num)
+{
+    queue[rear++] = num;
+}
+
+int getElem()
+{
+    return queue[front++];
+}
+
+void check_at(int at[], int n)
+{
+    while (at[j] <= cur_time && j < n)
+    {
+        k++;
+        push(j++);
+    }
+}
+void finding(int at[], int bt[], int wt[], int ct[], int n, int q)
+{
+    int temp_bt[n], count = 0, p = 0;
+    bool flag = false;
+    j = 0;
     for (int i = 0; i < n; i++)
     {
-        remainder += rem_time[i];
+        temp_bt[i] = bt[i];
     }
-    return remainder > 0 ? true : false;
+    cur_time = at[0];
+    k = 1;
+    push(j++);
+    while (cur_time <= total_time)
+    {
+        if (flag || k != 0)
+        { 
+            if (!flag && count == 0)
+            {
+                p = getElem();
+                count = 0;
+                flag = true;
+            }
+            temp_bt[p]--;
+            if (temp_bt[p] == 0)
+            {
+                cur_time++;
+                count = 0;
+                ct[p] = cur_time;
+                flag = false;
+                k--;
+                check_at(at, n);
+                continue;
+            }
+
+            count++;
+            if (count == q)
+            {
+                count = 0;
+                cur_time++;
+                check_at(at, n);
+                push(p);
+                flag = false;
+            }
+            else
+            {
+                cur_time++;
+                check_at(at, n);
+            }
+        }
+        else
+        {
+            cur_time++;
+            check_at(at, n);
+        }
+    }
 }
 
 int main()
 {
-    int current = 0, n, time = 0, time_quantum;
-    bool f = false;
-    int wait_time = 0, turnaround_time = 0;
-
-    printf("enter number of proccesses: ");
+    int n;
+    printf("Enter the number of processes: ");
     scanf("%d", &n);
-
-    int arrival_time[n], burst_time[n], remain_time[n];
-    int remain = n;
+    int arrival_time[n], burst_time[n], waiting_time[n], turnaround_time[n], compl_time[n];
+    float ntat[n];
 
     printf("enter arrival time of each process:\n");
     for (int i = 0; i < n; i++)
@@ -33,51 +108,55 @@ int main()
     for (int i = 0; i < n; i++)
     {
         scanf("%d", &burst_time[i]);
-        remain_time[i] = burst_time[i];
     }
 
-    printf("Enter Time Quantum:\n");
-    scanf("%d", &time_quantum);
+    int quantum;
+    printf("Enter the time quantum: ");
+    scanf("%d", &quantum);
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = i; j >= 1; j--)
+        {
+            if (arrival_time[j] < arrival_time[j - 1])
+            {
+                swap(&arrival_time[j], &arrival_time[j - 1]);
+                swap(&burst_time[j], &burst_time[j - 1]);
+            }
+            else if (arrival_time[j] == arrival_time[j - 1])
+            {
+                if (burst_time[j] < burst_time[j - 1])
+                {
+                    swap(&burst_time[j], &burst_time[j - 1]);
+                }
+            }
+        }
+    }
+
+
+    total_time += arrival_time[0] + burst_time[0];
+    for (int i = 1; i < n; i++)
+    {
+        if (total_time < arrival_time[i])
+        {
+            total_time = arrival_time[i];
+        }
+        total_time += burst_time[i];
+    }
+
+    finding(arrival_time, burst_time, waiting_time, compl_time, n, quantum);
 
     printf("Number of proccess: AT, BT, CT, TAT, WT\n");
-
-    while (remain != 0)
+    for (int i = 0; i < n; i++)
     {
-        if (remain_time[current] <= time_quantum && remain_time[current] > 0)
-        {
-            time += remain_time[current];
-            remain_time[current] = 0;
-            f = true;
-        }
-        else if (remain_time[current] > 0)
-        {
-            remain_time[current] -= time_quantum;
-            time += time_quantum;
-        }
-        if (remain_time[current] == 0 && f)
-        {
-            remain--;
-            int tat = time - arrival_time[current];
-            int wt = time - arrival_time[current] - burst_time[current];
-            printf("%d process: %d, %d, %d, %d, %d\n", current + 1, arrival_time[current], burst_time[current], time, tat, wt);
-            wait_time += wt;
-            turnaround_time += tat;
-            f = false;
-        }
-        if (current == n - 1)
-            current = 0;
-        else if (arrival_time[current + 1] <= time)
-            current++;
-        else if (arrival_time[current + 1] > time && !remainders(remain_time, current + 1))
-        {
-            time = arrival_time[current + 1];
-        }
-        else
-            current = 0;
+        turnaround_time[i] = compl_time[i] - arrival_time[i];
+        waiting_time[i] = turnaround_time[i] - burst_time[i];
+        ntat[i] = (float)turnaround_time[i] / burst_time[i];
+        printf("%d process: %d, %d, %d, %d, %d\n", i + 1, arrival_time[i], burst_time[i], compl_time[i], turnaround_time[i], waiting_time[i]);
+        total_tat += turnaround_time[i];
+        total_wt += waiting_time[i];
     }
 
-    printf("Average Turnaround time: %f\n", (float)wait_time / (float)n);
-    printf("Average waiting time: %f\n", (float)turnaround_time / (float)n);
-
-    return 0;
+    printf("Average Turnaround time: %f\n", (float) total_tat / (float) n);
+    printf("Average waiting time: %f\n", (float) total_wt / (float) n);
 }

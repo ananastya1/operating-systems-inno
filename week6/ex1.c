@@ -71,19 +71,6 @@ int main()
 
 	sortat(arrival_time, burst_time, n);
 
-	// for (int i = 1; i < n; i++)
-	// {
-	// 	key = arrival_time[i];
-	// 	j = i - 1;
-	// 	while (j >= 0 && arrival_time[j] > key)
-	// 	{
-	// 		arrival_time[j + 1] = arrival_time[j];
-	// 		burst_time[j + 1] = burst_time[j];
-	// 		j -= 1;
-	// 	}
-	// 	arrival_time[j + 1] = key;
-	// }
-
 	findWT(n, burst_time, waiting_time, arrival_time);
 
 	findTAT(n, burst_time, waiting_time, turnaround_time);
