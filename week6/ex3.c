@@ -123,13 +123,6 @@ int main()
                 swap(&arrival_time[j], &arrival_time[j - 1]);
                 swap(&burst_time[j], &burst_time[j - 1]);
             }
-            else if (arrival_time[j] == arrival_time[j - 1])
-            {
-                if (burst_time[j] < burst_time[j - 1])
-                {
-                    swap(&burst_time[j], &burst_time[j - 1]);
-                }
-            }
         }
     }
 
