@@ -1,4 +1,6 @@
-The second algorithm is more efficient than the first one.
+SJF (ex2) is more efficient than FCFS (ex1) because SJF can reduce the 
+average waiting time, as short processes will be executed first in ex2
+whereas in the ex1 processes run just in arrival order.
 For example, if number of proccesses = 3, arrival times = 0 0 0, burst times = 1 30 1,
 then average TAT for FCFS = 21.3 and average TAT for SJF = 11,7, WT for FCFS = 10,7 
-and WT for SJF = 1.
+and WT for SJF = 1. It confirms that the second algorithm is optimized better.
