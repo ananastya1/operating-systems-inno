@@ -1,0 +1,2 @@
+Physical address physically exists in the memory whereas virtual address does not.
+Virtual address is just a reference to access the physical one.

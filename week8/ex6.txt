@@ -1,0 +1,4 @@
+The lower 13 bits specify the byte offset within the selected page (as log₂8196 ≈ 13).
+So, the upper 16 - 13 = 3 bits could specify one of the virtual pages.
+Therefore, 2³=8 entries are needed.
+Answer: 8 entries.
