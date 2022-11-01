@@ -1,1 +1,1 @@
-free -t -h
+free -t -h > ~/week8/ex1.txt
