@@ -9,6 +9,8 @@ int main() {
         memset(ptr[i], 0, 10485760);
         sleep(1);
     }
+    for (int i = 0; i < 10; i++)
+        free(ptr[i]);
     // When ex2 is running in background, it appears in the process list and amount of used memory and swaps is increasing.
     // After end of execution, the process disappears from the list and amount of used memory is approximatly the same with
     // before running the program.
