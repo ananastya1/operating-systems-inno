@@ -6,11 +6,11 @@
 
 
 int main(int argc, char *argv[]) {
-    unsigned int counter[1000];
     float hit = 0, miss = 0;
     bool page_found;
 
     unsigned int frames_num = atoi(argv[1]);
+    unsigned int counter[1000];
     unsigned int *page_table = malloc(frames_num * sizeof(unsigned int));
     int page;
     FILE *file = fopen("ex1.txt", "r");
@@ -38,10 +38,10 @@ int main(int argc, char *argv[]) {
             page_table[sw_i] = page;
         }
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < frames_num; i++) {
             counter[i] >>= 0x1;
         }
-        counter[page] |= 0x1 << 31;
+        counter[page] |= 0x1 << 15;
     }
 
     printf("Hit/Miss ratio: %f\n", hit / miss);
