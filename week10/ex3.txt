@@ -1,0 +1,9 @@
+-rw-rw-rw- 1 nastya nastya 7 Nov 11 12:25 _ex3.txt
+-rwxrw-rwx 1 nastya nastya 7 Nov 11 12:25 _ex3.txt
+-rwxrwxrwx 1 nastya nastya 7 Nov 11 12:25 _ex3.txt
+
+   rwx rwx rwx
+    u	g   o
+   110 110 000 == 660  Owner and group have permissions to read and write, others have no permissions.
+   111 111 101 == 775  Owner and group have permissions to read, write, execute, others have permissions to read and execute.
+   111 111 111 == 777  All permissions are enabled to all groups
