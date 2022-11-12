@@ -2,3 +2,6 @@ Hard links to file1:
 /home/nastya/week10/link1
 /home/nastya/week10/tmp/file1
 
+Hard links to link1: 
+/home/nastya/week10/tmp/file1
+/home/nastya/week10/tmp/link1
