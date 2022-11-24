@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
-#define NUM_OF_KEYS 7777
+#define NUM_OF_KEYS 300
 
 
 int main() {
@@ -25,10 +25,21 @@ int main() {
             }
             else if (ev.value == 1) {
                 key_status[ev.code] = 1;
-                if(key_status[25] && key_status[18]) {
+            }
+            else if (ev.value == 2) {
+                int k = 0;
+                for(int i = 0; i < NUM_OF_KEYS; i++) {
+                    if (key_status[i] == 1) {
+                        k++;
+                    }
+                }
+                if(key_status[24] && key_status[31] && k == 2) {
+                    printf("I love OS!\n");
+                }
+                if(key_status[25] && key_status[18] && k == 2) {
                     printf("I passed the Exam!\n");
                 }
-                else if(key_status[46] && key_status[30] && key_status[25]) {
+                else if(key_status[46] && key_status[30] && key_status[25] && k == 3) {
                     printf("Get some cappuccino!\n");
                 }
             }
