@@ -1,0 +1,15 @@
+Recovery
+
+Recovery strategy can be useful when we care about the performance as we do not look for deadlocks 
+in advance. So, it helps when deadlock already occured. However, it can be unstable and dangerous
+due to deadlocks' occurence.
+
+Prevention
+Preventation strategy means that the deadlocks conditions never hold in the implemented system.
+Actually, it is almost impossible for realization in a real-world system. Nevertheless, this strategy 
+is the best in terms of the performance due to no extra efforts for solving possible deadlocks during runtime.
+
+Avoidance
+Avoidance is safer than recovery and simplier than prevention, but slower in terms of performance. 
+The key idea of the strategy is predict the possible deadlock and manipulate resources to avoid it. 
+This prediction spends the computer resources that is the reason for higher runtime.
