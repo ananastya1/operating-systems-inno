@@ -8,7 +8,7 @@
 
 typedef struct {
     int num;
-    int done;
+    bool done;
     int C[M];
     int R[M];
 } processes;
@@ -21,20 +21,23 @@ int lookup(int n, int m) {
         if (proc[pid].done) {
             continue;
         }
-        char chosen = true;
+        bool chosen = true;
         for (int j = 0; j < m; j++) {
+            printf("%d %d \n", proc[pid].R[j], A[j]);
             if (proc[pid].R[j] > A[j]) {
                 chosen = false;
                 break;
             }
+            
         }
+        printf("\n");
         if (chosen) {
             for (int j = 0; j < m; j++) {
                 A[j] = A[j] + proc[pid].C[j];
                 proc[pid].C[j] = 0;
                 proc[pid].R[j] = 0;
-                proc[pid].done = true;
             }
+            proc[pid].done = true;
             return pid;
         }
     }
@@ -87,14 +90,32 @@ int main() {
     for (int i =  0; i < n / 2; i++) {
         char * elemC = strtok(matr[i], " ");
         for (int j = 0; j < m; j++) {
-            sscanf(elemC, "%d", &proc[i].C[j++]);
+            sscanf(elemC, "%d", &proc[i].C[j]);
+            elemC = strtok (NULL, " ");
         }
     }
     for (int i = n / 2; i < n; i++) {
         char * elemR = strtok(matr[i], " ");
         for (int j = 0; j < m; j++) {
-            sscanf(elemR, "%d", &proc[i].R[j++]);
+            sscanf(elemR, "%d", &proc[i - n / 2].R[j]);
+            elemR = strtok (NULL, " ");
         }
+    }
+
+    for (int i = 0; i < n / 2; i++) {
+        printf("Process %d: ", proc[i].num);
+        for (int j = 0; j < m; j++) {
+            printf("%d ", proc[i].C[j]);
+        }
+        printf("\n");
+    }
+
+        for (int i = 0; i < n / 2; i++) {
+        printf("Process %d: ", proc[i].num);
+        for (int j = 0; j < m; j++) {
+            printf("%d ", proc[i].R[j]);
+        }
+        printf("\n");
     }
 
     while (true) {
